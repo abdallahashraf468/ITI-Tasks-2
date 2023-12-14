@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            background-color: green;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        svg {
+            width: 200px;
+            height: 200px;
+            border: 3px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <svg id="svg-container">
+        <image xlink:href="./img.svg" width="200" height="200" />
+
+        <circle id="left-eye" cx="103" cy="100" r="10" />
+        <circle id="right-eye" cx="160" cy="100" r="10" />
+        <ellipse id="mouth" cx="120" cy="160" rx="30" ry="15" />
+    </svg>
+
+    <script>
+        const leftEye = document.getElementById("left-eye");
+        const rightEye = document.getElementById("right-eye");
+        const mouth = document.getElementById("mouth");
+
+        function changeColor(element, message) {
+            element.addEventListener("mouseover", function () {
+                element.style.fill = "transparent";
+                alert(message);
+            });
+            
+            element.addEventListener("mouseout", function () {
+                element.style.fill = "#ffcc99";
+            });
+        }
+
+        changeColor(leftEye, "this is left eye");
+        changeColor(rightEye, "this is right eye");
+        changeColor(mouth, "this is mouse");
+    </script>
+</body>
+
+</html>

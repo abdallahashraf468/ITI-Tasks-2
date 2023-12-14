@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Drawing and Erasing</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas" width="800" height="700"></canvas>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+        let eraseMode = false;
+
+        canvas.addEventListener('mousedown', (e) => {
+            isDrawing = true;
+            eraseMode = e.button === 2; // 
+            ctx.beginPath();
+            ctx.moveTo(e.clientX - canvas.getBoundingClientRect().left, e.clientY - canvas.getBoundingClientRect().top);
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (!isDrawing) return;
+
+            const x = e.clientX - canvas.getBoundingClientRect().left;
+            const y = e.clientY - canvas.getBoundingClientRect().top;
+
+            if (eraseMode) {
+                ctx.clearRect(x - 5, y - 5, 10, 10); // 
+            } else {
+                ctx.lineTo(x, y);
+                ctx.stroke();
+            }
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            isDrawing = false;
+            ctx.closePath();
+        });
+
+        canvas.addEventListener('contextmenu', (e) => {
+            e.preventDefault(); // 
+        });
+    </script>
+</body>
+</html>
